@@ -9,28 +9,21 @@
 import UIKit
 
 class GYFileManager: NSObject {
-    private static let instance: GYFileManager = GYFileManager(session: GYSession(), delegate: GYSessionDelegate(), rootQueue: DispatchQueue.main)
-    
-   public let session: GYSession
-    /// Instance's `SessionDelegate`, which handles the `URLSessionDelegate` methods and `AFRequest` interaction.
-    public let delegate: GYSessionDelegate
-    /// Root `DispatchQueue` for all internal callbacks and state update. **MUST** be a serial queue.
-    public let rootQueue: DispatchQueue
+    private static let instance: GYFileManager = GYFileManager()
     
     class func shareInstance() -> GYFileManager {
-     return instance
+        return instance
     }
     
-    public init(session: GYSession,
-                   delegate: GYSessionDelegate,
-                   rootQueue: DispatchQueue,
-                   startRequestsImmediately: Bool = true,
-                   requestQueue: DispatchQueue? = nil,
-                   serializationQueue: DispatchQueue? = nil) {
-           self.session = session
-           self.delegate = delegate
-           self.rootQueue = rootQueue
-       }
+    public let session: GYSession
+    
+    public init(_ session: GYSession) {
+        self.session = session
+    }
+    
+    public convenience override init() {
+        self.init(GYSession.default)
+    }
     
     func upload(file: URL, progressBlock: ((CGFloat) -> Void)?, completeBlock: (Error?, String?)) {
         
