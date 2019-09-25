@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C200D27233B49680044A91A /* RequestTaskMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C200D26233B49680044A91A /* RequestTaskMap.swift */; };
+		9C200D29233B49940044A91A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C200D28233B49940044A91A /* Request.swift */; };
+		9C200D2B233B55900044A91A /* URLConvertible+URLRequestConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C200D2A233B55900044A91A /* URLConvertible+URLRequestConvertible.swift */; };
+		9C200D2D233B55E30044A91A /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C200D2C233B55E30044A91A /* HTTPHeaders.swift */; };
+		9C200D2F233B56480044A91A /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C200D2E233B56480044A91A /* AFError.swift */; };
 		9C3B55D923054A6B00063443 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B55D823054A6B00063443 /* AppDelegate.swift */; };
 		9C3B55DB23054A6B00063443 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B55DA23054A6B00063443 /* ViewController.swift */; };
 		9C3B55DE23054A6B00063443 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C3B55DC23054A6B00063443 /* Main.storyboard */; };
@@ -37,6 +42,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C200D26233B49680044A91A /* RequestTaskMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestTaskMap.swift; sourceTree = "<group>"; };
+		9C200D28233B49940044A91A /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		9C200D2A233B55900044A91A /* URLConvertible+URLRequestConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLConvertible+URLRequestConvertible.swift"; sourceTree = "<group>"; };
+		9C200D2C233B55E30044A91A /* HTTPHeaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
+		9C200D2E233B56480044A91A /* AFError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
 		9C3B55D523054A6B00063443 /* FileDownLoadUploadManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileDownLoadUploadManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C3B55D823054A6B00063443 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C3B55DA23054A6B00063443 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +148,11 @@
 				9C3B560723054AAD00063443 /* GYFileManager.swift */,
 				9C9F2711233374DB00E1F083 /* GYSession.swift */,
 				9C9F27132333756900E1F083 /* GYSessionDelegate.swift */,
+				9C200D26233B49680044A91A /* RequestTaskMap.swift */,
+				9C200D28233B49940044A91A /* Request.swift */,
+				9C200D2A233B55900044A91A /* URLConvertible+URLRequestConvertible.swift */,
+				9C200D2C233B55E30044A91A /* HTTPHeaders.swift */,
+				9C200D2E233B56480044A91A /* AFError.swift */,
 			);
 			path = FileManager;
 			sourceTree = "<group>";
@@ -273,11 +288,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C200D2D233B55E30044A91A /* HTTPHeaders.swift in Sources */,
 				9C3B55DB23054A6B00063443 /* ViewController.swift in Sources */,
+				9C200D2B233B55900044A91A /* URLConvertible+URLRequestConvertible.swift in Sources */,
 				9C3B55D923054A6B00063443 /* AppDelegate.swift in Sources */,
 				9C9F27142333756900E1F083 /* GYSessionDelegate.swift in Sources */,
 				9C9F2712233374DB00E1F083 /* GYSession.swift in Sources */,
+				9C200D29233B49940044A91A /* Request.swift in Sources */,
+				9C200D2F233B56480044A91A /* AFError.swift in Sources */,
 				9C3B560823054AAD00063443 /* GYFileManager.swift in Sources */,
+				9C200D27233B49680044A91A /* RequestTaskMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +475,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W4UB3R88QD;
 				INFOPLIST_FILE = FileDownLoadUploadManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,7 +483,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cj.FileDownLoadUploadManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -473,6 +494,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W4UB3R88QD;
 				INFOPLIST_FILE = FileDownLoadUploadManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -480,7 +502,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cj.FileDownLoadUploadManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
