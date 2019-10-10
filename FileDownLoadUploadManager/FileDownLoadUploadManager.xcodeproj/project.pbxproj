@@ -21,6 +21,8 @@
 		9C3B55EE23054A6C00063443 /* FileDownLoadUploadManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B55ED23054A6C00063443 /* FileDownLoadUploadManagerTests.swift */; };
 		9C3B55F923054A6C00063443 /* FileDownLoadUploadManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B55F823054A6C00063443 /* FileDownLoadUploadManagerUITests.swift */; };
 		9C3B560823054AAD00063443 /* GYFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B560723054AAD00063443 /* GYFileManager.swift */; };
+		9C4FD5B9234DBEDA004294BF /* Protector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FD5B8234DBEDA004294BF /* Protector.swift */; };
+		9C4FD5BB234EC9A1004294BF /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4FD5BA234EC9A1004294BF /* RequestInterceptor.swift */; };
 		9C9F2712233374DB00E1F083 /* GYSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F2711233374DB00E1F083 /* GYSession.swift */; };
 		9C9F27142333756900E1F083 /* GYSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F27132333756900E1F083 /* GYSessionDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -63,6 +65,8 @@
 		9C3B55F823054A6C00063443 /* FileDownLoadUploadManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownLoadUploadManagerUITests.swift; sourceTree = "<group>"; };
 		9C3B55FA23054A6C00063443 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C3B560723054AAD00063443 /* GYFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYFileManager.swift; sourceTree = "<group>"; };
+		9C4FD5B8234DBEDA004294BF /* Protector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protector.swift; sourceTree = "<group>"; };
+		9C4FD5BA234EC9A1004294BF /* RequestInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
 		9C9F2711233374DB00E1F083 /* GYSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYSession.swift; sourceTree = "<group>"; };
 		9C9F27132333756900E1F083 /* GYSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYSessionDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,6 +156,8 @@
 				9C9F27132333756900E1F083 /* GYSessionDelegate.swift */,
 				9C200D26233B49680044A91A /* RequestTaskMap.swift */,
 				9C200D28233B49940044A91A /* Request.swift */,
+				9C4FD5BA234EC9A1004294BF /* RequestInterceptor.swift */,
+				9C4FD5B8234DBEDA004294BF /* Protector.swift */,
 				9C200D2A233B55900044A91A /* URLConvertible+URLRequestConvertible.swift */,
 				9C200D2C233B55E30044A91A /* HTTPHeaders.swift */,
 				9C200D2E233B56480044A91A /* AFError.swift */,
@@ -295,10 +301,12 @@
 				9C3B55DB23054A6B00063443 /* ViewController.swift in Sources */,
 				9C200D2B233B55900044A91A /* URLConvertible+URLRequestConvertible.swift in Sources */,
 				9C3B55D923054A6B00063443 /* AppDelegate.swift in Sources */,
+				9C4FD5BB234EC9A1004294BF /* RequestInterceptor.swift in Sources */,
 				9C9F27142333756900E1F083 /* GYSessionDelegate.swift in Sources */,
 				9C9F2712233374DB00E1F083 /* GYSession.swift in Sources */,
 				9C200D29233B49940044A91A /* Request.swift in Sources */,
 				9C200D35233C9C120044A91A /* DispatchQueue+Alamofire.swift in Sources */,
+				9C4FD5B9234DBEDA004294BF /* Protector.swift in Sources */,
 				9C200D2F233B56480044A91A /* AFError.swift in Sources */,
 				9C3B560823054AAD00063443 /* GYFileManager.swift in Sources */,
 				9C200D27233B49680044A91A /* RequestTaskMap.swift in Sources */,

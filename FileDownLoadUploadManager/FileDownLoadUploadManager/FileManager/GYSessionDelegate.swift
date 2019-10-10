@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GYSessionDelegate: NSObject {
+open class GYSessionDelegate: NSObject {
     private let fileManager: FileManager
 
 //        weak var stateProvider: SessionStateProvider?

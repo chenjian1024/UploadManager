@@ -60,7 +60,7 @@ public class Request {
     /// `EventMonitor` used for event callbacks.
 //    public let eventMonitor: EventMonitor?
     /// The `Request`'s interceptor.
-//    public let interceptor: RequestInterceptor?
+    public let interceptor: RequestInterceptor?
     /// The `Request`'s delegate.
     public private(set) weak var delegate: RequestDelegate?
 
@@ -209,12 +209,13 @@ public class Request {
     init(id: UUID = UUID(),
          underlyingQueue: DispatchQueue,
          serializationQueue: DispatchQueue,
+         interceptor: RequestInterceptor?,
          delegate: RequestDelegate) {
         self.id = id
         self.underlyingQueue = underlyingQueue
         self.serializationQueue = serializationQueue
 //        self.eventMonitor = eventMonitor
-//        self.interceptor = interceptor
+        self.interceptor = interceptor
         self.delegate = delegate
     }
 
@@ -824,7 +825,7 @@ public protocol RequestDelegate: AnyObject {
     ///   - request:    `Request` which failed.
     ///   - error:      `Error` which produced the failure.
     ///   - completion: Closure taking the `RetryResult` for evaluation.
-//    func retryResult(for request: Request, dueTo error: AFError, completion: @escaping (RetryResult) -> Void)
+    func retryResult(for request: Request, dueTo error: AFError, completion: @escaping (RetryResult) -> Void)
 
     /// Asynchronously retry the `Request`.
     ///
@@ -843,10 +844,10 @@ public class DataRequest: Request {
     /// `URLRequestConvertible` value used to create `URLRequest`s for this instance.
     public let convertible: URLRequestConvertible
     /// `Data` read from the server so far.
-//    public var data: Data? { return protectedData.directValue }
+    public var data: Data? { return protectedData.directValue }
 
     /// Protected storage for the `Data` read by the instance.
-//    private var protectedData: Protector<Data?> = Protector(nil)
+    private var protectedData: Protector<Data?> = Protector(nil)
 
     /// Creates a `DataRequest` using the provided parameters.
     ///
@@ -863,12 +864,14 @@ public class DataRequest: Request {
          convertible: URLRequestConvertible,
          underlyingQueue: DispatchQueue,
          serializationQueue: DispatchQueue,
+         interceptor: RequestInterceptor?,
          delegate: RequestDelegate) {
         self.convertible = convertible
 
         super.init(id: id,
                    underlyingQueue: underlyingQueue,
                    serializationQueue: serializationQueue,
+                   interceptor: interceptor,
                    delegate: delegate)
     }
 
@@ -1025,6 +1028,7 @@ public class DownloadRequest: Request {
          downloadable: Downloadable,
          underlyingQueue: DispatchQueue,
          serializationQueue: DispatchQueue,
+         interceptor: RequestInterceptor?,
          delegate: RequestDelegate,
          destination: @escaping Destination) {
         self.downloadable = downloadable
@@ -1033,6 +1037,7 @@ public class DownloadRequest: Request {
         super.init(id: id,
                    underlyingQueue: underlyingQueue,
                    serializationQueue: serializationQueue,
+                   interceptor: interceptor,
                    delegate: delegate)
     }
 
@@ -1208,6 +1213,7 @@ public class UploadRequest: DataRequest {
          convertible: UploadConvertible,
          underlyingQueue: DispatchQueue,
          serializationQueue: DispatchQueue,
+         interceptor: RequestInterceptor?,
          fileManager: FileManager,
          delegate: RequestDelegate) {
         upload = convertible
@@ -1217,6 +1223,7 @@ public class UploadRequest: DataRequest {
                    convertible: convertible,
                    underlyingQueue: underlyingQueue,
                    serializationQueue: serializationQueue,
+                   interceptor: interceptor,
                    delegate: delegate)
     }
 

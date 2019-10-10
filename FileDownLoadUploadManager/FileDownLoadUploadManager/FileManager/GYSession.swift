@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GYSession: NSObject {
+open class GYSession: NSObject {
     public static let `default` = GYSession()
     
     public let session: URLSession
@@ -16,6 +16,7 @@ class GYSession: NSObject {
     public let rootQueue: DispatchQueue
     public let requestQueue: DispatchQueue
     public let serializationQueue: DispatchQueue
+    public let interceptor: RequestInterceptor?
     public let startRequestsImmediately: Bool = true
     
     var requestTaskMap = RequestTaskMap()
@@ -26,6 +27,7 @@ class GYSession: NSObject {
                 delegate: GYSessionDelegate,
                 rootQueue: DispatchQueue,
                 startRequestsImmediately: Bool = true,
+                interceptor: RequestInterceptor? = nil,
                 requestQueue: DispatchQueue? = nil,
                 serializationQueue: DispatchQueue? = nil) {
         self.session = session
@@ -33,12 +35,14 @@ class GYSession: NSObject {
         self.rootQueue = rootQueue
         self.requestQueue = requestQueue ?? DispatchQueue(label: "\(rootQueue.label).requestQueue", target: rootQueue)
         self.serializationQueue = serializationQueue ?? DispatchQueue(label: "\(rootQueue.label).serializationQueue", target: rootQueue)
+        self.interceptor = interceptor
     }
     
     public convenience init(delegate: GYSessionDelegate = GYSessionDelegate(),
                             rootQueue: DispatchQueue = DispatchQueue(label: "org.gy.session.rootQueue"),
                             requestQueue: DispatchQueue? = nil,
-                            serializationQueue: DispatchQueue? = nil) {
+                            serializationQueue: DispatchQueue? = nil,
+                             interceptor: RequestInterceptor? = nil) {
         let configuration = URLSessionConfiguration.default
         let delegateQueue = OperationQueue()
         delegateQueue.maxConcurrentOperationCount = 1
@@ -49,8 +53,10 @@ class GYSession: NSObject {
         self.init(session: session,
                   delegate: delegate,
                   rootQueue: rootQueue,
+                  interceptor: interceptor,
                   requestQueue: requestQueue,
-                  serializationQueue: serializationQueue)
+                  serializationQueue: serializationQueue
+                  )
     }
     // MARK: - UploadRequest
 
@@ -95,7 +101,7 @@ class GYSession: NSObject {
                          to convertible: URLConvertible,
                          method: HTTPMethod = .post,
                          headers: HTTPHeaders? = nil,
-                        
+                         interceptor: RequestInterceptor? = nil,
                          fileManager: FileManager = .default) -> UploadRequest {
             let convertible = ParameterlessRequestConvertible(url: convertible, method: method, headers: headers)
 
@@ -114,7 +120,7 @@ class GYSession: NSObject {
         /// - Returns:       The created `UploadRequest`.
         open func upload(_ data: Data,
                          with convertible: URLRequestConvertible,
-                        
+                         interceptor: RequestInterceptor? = nil,
                          fileManager: FileManager = .default) -> UploadRequest {
             return upload(.data(data), with: convertible,  fileManager: fileManager)
         }
@@ -138,7 +144,7 @@ class GYSession: NSObject {
                          to convertible: URLConvertible,
                          method: HTTPMethod = .post,
                          headers: HTTPHeaders? = nil,
-                        
+                         interceptor: RequestInterceptor? = nil,
                          fileManager: FileManager = .default) -> UploadRequest {
             let convertible = ParameterlessRequestConvertible(url: convertible, method: method, headers: headers)
 
@@ -158,7 +164,7 @@ class GYSession: NSObject {
         /// - Returns:       The created `UploadRequest`.
         open func upload(_ fileURL: URL,
                          with convertible: URLRequestConvertible,
-                        
+                         interceptor: RequestInterceptor? = nil,
                          fileManager: FileManager = .default) -> UploadRequest {
             return upload(.file(fileURL, shouldRemove: false), with: convertible,  fileManager: fileManager)
         }
@@ -182,7 +188,7 @@ class GYSession: NSObject {
                          to convertible: URLConvertible,
                          method: HTTPMethod = .post,
                          headers: HTTPHeaders? = nil,
-                        
+                         interceptor: RequestInterceptor? = nil,
                          fileManager: FileManager = .default) -> UploadRequest {
             let convertible = ParameterlessRequestConvertible(url: convertible, method: method, headers: headers)
 
@@ -202,7 +208,7 @@ class GYSession: NSObject {
         /// - Returns:       The created `UploadRequest`.
         open func upload(_ stream: InputStream,
                          with convertible: URLRequestConvertible,
-                        
+                         interceptor: RequestInterceptor? = nil,
                          fileManager: FileManager = .default) -> UploadRequest {
             return upload(.stream(stream), with: convertible,  fileManager: fileManager)
         }
@@ -215,7 +221,7 @@ class GYSession: NSObject {
 
         func upload(_ uploadable: UploadRequest.Uploadable,
                     with convertible: URLRequestConvertible,
-                   
+                    interceptor: RequestInterceptor? = nil,
                     fileManager: FileManager) -> UploadRequest {
             let uploadable = Upload(request: convertible, uploadable: uploadable)
 
@@ -226,6 +232,7 @@ class GYSession: NSObject {
             let request = UploadRequest(convertible: upload,
                                         underlyingQueue: rootQueue,
                                         serializationQueue: serializationQueue,
+                                        interceptor: interceptor,
                                         fileManager: fileManager,
                                         delegate: self)
 
@@ -378,21 +385,21 @@ class GYSession: NSObject {
 
         // MARK: - Adapters and Retriers
 
-//        func adapter(for request: Request) -> RequestAdapter? {
-//            if let requestInterceptor = request.interceptor, let sessionInterceptor = interceptor {
-//                return Interceptor(adapters: [requestInterceptor, sessionInterceptor])
-//            } else {
-//                return request.interceptor ?? interceptor
-//            }
-//        }
-//
-//        func retrier(for request: Request) -> RequestRetrier? {
-//            if let requestInterceptor = request.interceptor, let sessionInterceptor = interceptor {
-//                return Interceptor(retriers: [requestInterceptor, sessionInterceptor])
-//            } else {
-//                return request.interceptor ?? interceptor
-//            }
-//        }
+        func adapter(for request: Request) -> RequestAdapter? {
+            if let requestInterceptor = request.interceptor, let sessionInterceptor = interceptor {
+                return Interceptor(adapters: [requestInterceptor, sessionInterceptor])
+            } else {
+                return request.interceptor ?? interceptor
+            }
+        }
+
+        func retrier(for request: Request) -> RequestRetrier? {
+            if let requestInterceptor = request.interceptor, let sessionInterceptor = interceptor {
+                return Interceptor(retriers: [requestInterceptor, sessionInterceptor])
+            } else {
+                return request.interceptor ?? interceptor
+            }
+        }
 
         // MARK: - Invalidation
 
